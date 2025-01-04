@@ -24,9 +24,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.ui.unit.dp
+import com.example.myapplication.ui.theme.AccesibleColors
+import com.example.myapplication.ui.theme.AccessibleTypography
 
 @Composable
 fun RegisterScreen(
@@ -51,23 +55,32 @@ fun RegisterScreen(
     ) {
         Text(
             text = "Crear cuenta",
-            style = MaterialTheme.typography.headlineMedium,
+            style = AccessibleTypography.headlineLarge,
+            color = AccesibleColors.Primary,
             modifier = Modifier.padding(bottom = 32.dp)
         )
 
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
+            label = { Text("Email", style = AccessibleTypography.bodyLarge) },
+            textStyle = AccessibleTypography.bodyLarge,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(bottom = 16.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = AccesibleColors.Primary,
+                unfocusedBorderColor = AccesibleColors.OnBackground,
+                focusedLabelColor = AccesibleColors.Primary,
+                unfocusedLabelColor = AccesibleColors.OnBackground
+            )
         )
 
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Contraseña") },
+            label = { Text("Contraseña", style = AccessibleTypography.bodyLarge) },
+            textStyle = AccessibleTypography.bodyLarge,
             visualTransformation = if (!passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
@@ -79,13 +92,20 @@ fun RegisterScreen(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(bottom = 16.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = AccesibleColors.Primary,
+                unfocusedBorderColor = AccesibleColors.OnBackground,
+                focusedLabelColor = AccesibleColors.Primary,
+                unfocusedLabelColor = AccesibleColors.OnBackground
+            )
         )
 
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = { Text("Confirmar Contraseña") },
+            label = { Text("Confirmar Contraseña", style = AccessibleTypography.bodyLarge) },
+            textStyle = AccessibleTypography.bodyLarge,
             visualTransformation = if (!passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
@@ -97,7 +117,13 @@ fun RegisterScreen(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(bottom = 16.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = AccesibleColors.Primary,
+                unfocusedBorderColor = AccesibleColors.OnBackground,
+                focusedLabelColor = AccesibleColors.Primary,
+                unfocusedLabelColor = AccesibleColors.OnBackground
+            )
         )
 
         Button(
@@ -131,9 +157,13 @@ fun RegisterScreen(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(bottom = 16.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = AccesibleColors.Primary,
+                contentColor = AccesibleColors.OnPrimary
+            )
         ) {
-            Text("Crear cuenta")
+            Text("Crear cuenta", style = AccessibleTypography.labelLarge)
         }
 
         TextButton(

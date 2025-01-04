@@ -23,10 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.ui.text.input.VisualTransformation
+import com.example.myapplication.ui.theme.AccesibleColors
+import com.example.myapplication.ui.theme.AccessibleTypography
 
 @Composable
 fun LoginScreen(
@@ -52,35 +56,51 @@ fun LoginScreen(
     ) {
         Text(
             text = "YourVoice",
-            style = MaterialTheme.typography.headlineMedium,
+            style = AccessibleTypography.headlineLarge,
+            color = AccesibleColors.Primary,
             modifier = Modifier.padding(bottom = 32.dp)
         )
 
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
+            label = { Text("Email", style = AccessibleTypography.bodyLarge) },
+            textStyle = AccessibleTypography.bodyLarge,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(bottom = 16.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = AccesibleColors.Primary,
+                unfocusedBorderColor = AccesibleColors.OnBackground,
+                focusedLabelColor = AccesibleColors.Primary,
+                unfocusedLabelColor = AccesibleColors.OnBackground
+            )
         )
 
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Contraseña") },
+            label = { Text("Contraseña", style = AccessibleTypography.bodyLarge) },
+            textStyle = AccessibleTypography.bodyLarge,
             visualTransformation = if (!passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                     Icon(
                         imageVector = if (passwordVisible) Icons.Default.Lock else Icons.Default.Lock,
-                        contentDescription = if (passwordVisible) "Ocultar contraseña" else "Mostrar contraseña"
+                        contentDescription = if (passwordVisible) "Ocultar contraseña" else "Mostrar contraseña",
+                        tint = AccesibleColors.Primary
                     )
                 }
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(bottom = 16.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = AccesibleColors.Primary,
+                unfocusedBorderColor = AccesibleColors.OnBackground,
+                focusedLabelColor = AccesibleColors.Primary,
+                unfocusedLabelColor = AccesibleColors.OnBackground
+            )
         )
         Button(
             onClick = {
@@ -98,15 +118,23 @@ fun LoginScreen(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(bottom = 16.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = AccesibleColors.Primary,
+                contentColor = AccesibleColors.OnPrimary
+            )
         ) {
-            Text("Iniciar sesión")
+            Text("Iniciar sesión", style = AccessibleTypography.labelLarge)
         }
 
         TextButton(
-            onClick = { setShowRegister(true) }
+            onClick = { setShowRegister(true) },
+            colors = ButtonDefaults.textButtonColors(
+                contentColor = AccesibleColors.Primary
+            )
         ) {
-            Text("¿No tienes cuenta? Regístrate")
+            Text("¿No tienes cuenta? Regístrate", 
+                style = AccessibleTypography.bodyLarge)
         }
 
         TextButton(

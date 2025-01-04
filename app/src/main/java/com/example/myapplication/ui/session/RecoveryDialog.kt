@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.example.myapplication.ui.theme.AccesibleColors
+import com.example.myapplication.ui.theme.AccessibleTypography
 
 @Composable
 fun RecoveryDialog(
@@ -33,19 +35,22 @@ fun RecoveryDialog(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(16.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = AccesibleColors.Surface
+            )
         ) {
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(24.dp)
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     text = if (recoveryStep == 1) "Recuperar Contraseña" else "Verificar Código",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(bottom = 16.dp)
+                    style = AccessibleTypography.titleLarge,
+                    color = AccesibleColors.Primary,
+                    modifier = Modifier.padding(bottom = 24.dp)
                 )
 
                 if (recoveryStep == 1) {
