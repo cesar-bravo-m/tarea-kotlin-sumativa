@@ -34,7 +34,7 @@ fun LoginScreen(
     setShowRegister: (Boolean) -> Unit,
     context: Context
 ) {
-    var username by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
@@ -45,15 +45,15 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Quiral",
+            text = "Speakeasy",
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(bottom = 32.dp)
         )
 
         OutlinedTextField(
-            value = username,
-            onValueChange = { username = it },
-            label = { Text("Nombre de usuario") },
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Email") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
@@ -70,12 +70,12 @@ fun LoginScreen(
         )
         Button(
             onClick = {
-                if (username.isBlank() || password.isBlank()) {
+                if (email.isBlank() || password.isBlank()) {
                     Toast.makeText(context, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
                     return@Button
                 }
                 
-                if (UserManager.authenticate(username, password)) {
+                if (UserManager.authenticate(email, password)) {
                     Toast.makeText(context, "¡Inicio de sesión exitoso!", Toast.LENGTH_SHORT).show()
                     setIsLoggedIn(true)
                 } else {

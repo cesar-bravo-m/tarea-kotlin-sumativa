@@ -1,25 +1,30 @@
 package com.example.myapplication.ui.session
 
 data class User(
-    val username: String,
     var password: String,
     val email: String
 )
 
 object UserManager {
-    private val users = mutableListOf(
-        User("admin", "admin", "admin@example.com")
-    )
+    // REQUERIMIENTO: "deberá contemplar un array que almacene los datos de 5 usuarios con sus
+    //                 respectivas contraseñas"
+    private val users = mutableListOf<User>()
 
-    fun authenticate(username: String, password: String): Boolean {
-        return users.any { it.username == username && it.password == password }
+    init {
+        users.add(User("admin@example.com" , "admin"))
+        users.add(User("cesa.bravo@duocuc.cl" , "admin"))
+        users.add(User("pablo" , "vilches"))
     }
 
-    fun register(username: String, password: String, email: String): Boolean {
-        if (users.any { it.username == username || it.email == email }) {
+    fun authenticate(email: String, password: String): Boolean {
+        return users.any { it.email == email && it.password == password }
+    }
+
+    fun register(email: String, password: String): Boolean {
+        if (users.any { it.email == email }) {
             return false
         }
-        users.add(User(username, password, email))
+        users.add(User(email, password))
         return true
     }
 
@@ -35,8 +40,4 @@ object UserManager {
     fun verifyEmail(email: String): Boolean {
         return users.any { it.email == email }
     }
-
-    fun getUsername(email: String): String? {
-        return users.find { it.email == email }?.username
-    }
-} 
+}

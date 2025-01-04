@@ -30,7 +30,6 @@ fun RegisterScreen(
     setShowRegister: (Boolean) -> Unit,
     context: Context
 ) {
-    var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -47,15 +46,6 @@ fun RegisterScreen(
             text = "Crear cuenta",
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(bottom = 32.dp)
-        )
-
-        OutlinedTextField(
-            value = username,
-            onValueChange = { username = it },
-            label = { Text("Nombre de usuario") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
         )
 
         OutlinedTextField(
@@ -89,19 +79,25 @@ fun RegisterScreen(
 
         Button(
             onClick = {
-                if (username.isBlank() || email.isBlank() || password.isBlank()) {
+                // Validaciones
+                if (email.isBlank() || password.isBlank()) {
                     Toast.makeText(context, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
                     return@Button
+                }
+                // Contraseña: al menos 8 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número y al menos un carácter especial
+                if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}\$".toRegex())) {
+                    Toast.makeText(context, "La contraseña debe tener al menos 8 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número y al menos un carácter especial", Toast.LENGTH_LONG).show()
                 }
                 if (password != confirmPassword) {
                     Toast.makeText(context, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
                     return@Button
                 }
+                // Email: Comprobar formato
                 if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     Toast.makeText(context, "Email inválido", Toast.LENGTH_SHORT).show()
                     return@Button
                 }
-                if (UserManager.register(username, password, email)) {
+                if (UserManager.register(email, password)) {
                     Toast.makeText(context, "¡Registro exitoso!", Toast.LENGTH_SHORT).show()
                     setIsLoggedIn(true)
                 } else {

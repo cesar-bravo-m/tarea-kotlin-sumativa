@@ -1,43 +1,26 @@
 package com.example.myapplication.ui.session
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 
+val users = mutableListOf<User>()
+
 @Composable
 fun UIManager() {
-    val (showRecoveryDialog, setShowRecoveryDialog) = androidx.compose.runtime.remember {
-        androidx.compose.runtime.mutableStateOf(
-            false
-        )
-    }
-    val (showRegister, setShowRegister) = androidx.compose.runtime.remember {
-        androidx.compose.runtime.mutableStateOf(
-            false
-        )
-    }
-    val (recoveryStep, setRecoveryStep) = androidx.compose.runtime.remember {
-        androidx.compose.runtime.mutableIntStateOf(
-            1
-        )
-    }
-    val (email, setEmail) = androidx.compose.runtime.remember {
-        androidx.compose.runtime.mutableStateOf(
-            ""
-        )
-    }
-    val (verificationCode, setVerificationCode) = androidx.compose.runtime.remember {
-        androidx.compose.runtime.mutableStateOf(
-            ""
-        )
-    }
-    val (isLoggedIn, setIsLoggedIn) = androidx.compose.runtime.remember {
-        androidx.compose.runtime.mutableStateOf(
-            false
-        )
-    }
+    val (showRecoveryDialog, setShowRecoveryDialog) = remember { mutableStateOf(false) }
+    val (showRegister, setShowRegister) = remember { mutableStateOf(false) }
+    val (recoveryStep, setRecoveryStep) = remember { mutableIntStateOf(1) }
+    val (email, setEmail) = remember { mutableStateOf("") }
+    val (verificationCode, setVerificationCode) = remember { mutableStateOf("") }
+    val (isLoggedIn, setIsLoggedIn) = remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
