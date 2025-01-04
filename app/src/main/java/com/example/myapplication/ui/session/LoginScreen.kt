@@ -21,7 +21,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.Icon
 import androidx.compose.ui.unit.dp
+import androidx.compose.material3.IconButton
+import androidx.compose.ui.text.input.VisualTransformation
 
 @Composable
 fun LoginScreen(
@@ -36,6 +41,7 @@ fun LoginScreen(
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var passwordVisible by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,7 +51,7 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Speakeasy",
+            text = "YourVoice",
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(bottom = 32.dp)
         )
@@ -63,7 +69,15 @@ fun LoginScreen(
             value = password,
             onValueChange = { password = it },
             label = { Text("Contraseña") },
-            visualTransformation = PasswordVisualTransformation(),
+            visualTransformation = if (!passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
+            trailingIcon = {
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Icon(
+                        imageVector = if (passwordVisible) Icons.Default.Lock else Icons.Default.Lock,
+                        contentDescription = if (passwordVisible) "Ocultar contraseña" else "Mostrar contraseña"
+                    )
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)

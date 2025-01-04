@@ -2,8 +2,12 @@ package com.example.myapplication.ui.session
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -24,7 +28,14 @@ fun UIManager() {
     val context = LocalContext.current
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        if (showRegister) {
+        if (isLoggedIn) {
+            Column(modifier = Modifier.padding(innerPadding)) {
+                Text(text = "En construcción")
+                Button(onClick = { setIsLoggedIn(false) }) {
+                    Text(text = "Volver")
+                }
+            }
+        } else if (showRegister) {
             RegisterScreen(
                 innerPadding,
                 setIsLoggedIn,

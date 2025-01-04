@@ -1,19 +1,22 @@
 package com.example.myapplication.ui.session
 
 data class User(
+    val email: String,
     var password: String,
-    val email: String
 )
 
 object UserManager {
     // REQUERIMIENTO: "deberá contemplar un array que almacene los datos de 5 usuarios con sus
     //                 respectivas contraseñas"
-    private val users = mutableListOf<User>()
+    private var users = arrayOf(
+        User("admin@example.com" , "admin"),
+        User("cesa.bravo@duocuc.cl" , "admin"),
+        User("cesar@gmail.com" , "admin"),
+        User("antonio@gmail.com" , ": admin"),
+        User("ignacio@gmail.com" , ": admin"),
+    )
 
     init {
-        users.add(User("admin@example.com" , "admin"))
-        users.add(User("cesa.bravo@duocuc.cl" , "admin"))
-        users.add(User("pablo" , "vilches"))
     }
 
     fun authenticate(email: String, password: String): Boolean {
@@ -24,7 +27,7 @@ object UserManager {
         if (users.any { it.email == email }) {
             return false
         }
-        users.add(User(email, password))
+        users = users.plus(User(email, password))
         return true
     }
 

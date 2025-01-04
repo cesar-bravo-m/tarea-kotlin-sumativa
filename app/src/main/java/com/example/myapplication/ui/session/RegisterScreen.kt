@@ -21,6 +21,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Icon
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -33,6 +38,8 @@ fun RegisterScreen(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
+    var passwordVisible by remember { mutableStateOf(false) }
+    var confirmPasswordVisible by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -61,7 +68,15 @@ fun RegisterScreen(
             value = password,
             onValueChange = { password = it },
             label = { Text("Contraseña") },
-            visualTransformation = PasswordVisualTransformation(),
+            visualTransformation = if (!passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
+            trailingIcon = {
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Icon(
+                        imageVector = if (confirmPasswordVisible) Icons.Default.Lock else Icons.Default.Lock,
+                        contentDescription = if (confirmPasswordVisible) "Ocultar contraseña" else "Mostrar contraseña"
+                    )
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
@@ -70,8 +85,16 @@ fun RegisterScreen(
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = { Text("Confirmar contraseña") },
-            visualTransformation = PasswordVisualTransformation(),
+            label = { Text("Confirmar Contraseña") },
+            visualTransformation = if (!passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
+            trailingIcon = {
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Icon(
+                        imageVector = if (confirmPasswordVisible) Icons.Default.Lock else Icons.Default.Lock,
+                        contentDescription = if (confirmPasswordVisible) "Ocultar contraseña" else "Mostrar contraseña"
+                    )
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
@@ -85,8 +108,9 @@ fun RegisterScreen(
                     return@Button
                 }
                 // Contraseña: al menos 8 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número y al menos un carácter especial
-                if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}\$".toRegex())) {
-                    Toast.makeText(context, "La contraseña debe tener al menos 8 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número y al menos un carácter especial", Toast.LENGTH_LONG).show()
+                if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}\$".toRegex())) {
+                    Toast.makeText(context, "La contraseña debe tener al menos 6 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número y al menos un carácter especial", Toast.LENGTH_LONG).show()
+                    return@Button
                 }
                 if (password != confirmPassword) {
                     Toast.makeText(context, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
@@ -98,8 +122,9 @@ fun RegisterScreen(
                     return@Button
                 }
                 if (UserManager.register(email, password)) {
-                    Toast.makeText(context, "¡Registro exitoso!", Toast.LENGTH_SHORT).show()
-                    setIsLoggedIn(true)
+                    Toast.makeText(context, "¡Registro exitoso! Usa tus credenciales para iniciar sesión", Toast.LENGTH_LONG).show()
+                    setShowRegister(false)
+                    // setIsLoggedIn(true)
                 } else {
                     Toast.makeText(context, "El usuario o email ya existe", Toast.LENGTH_SHORT).show()
                 }
