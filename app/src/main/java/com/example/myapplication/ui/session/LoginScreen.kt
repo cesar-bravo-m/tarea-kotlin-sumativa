@@ -56,7 +56,7 @@ fun LoginScreen(
     ) {
         Text(
             text = "YourVoice",
-            style = AccessibleTypography.headlineLarge,
+            style = AccessibleTypography().headlineLarge,
             color = AccesibleColors.Primary,
             modifier = Modifier.padding(bottom = 32.dp)
         )
@@ -64,8 +64,8 @@ fun LoginScreen(
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email", style = AccessibleTypography.bodyLarge) },
-            textStyle = AccessibleTypography.bodyLarge,
+            label = { Text("Email", style = AccessibleTypography().bodyLarge) },
+            textStyle = AccessibleTypography().bodyLarge,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
@@ -80,8 +80,8 @@ fun LoginScreen(
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Contraseña", style = AccessibleTypography.bodyLarge) },
-            textStyle = AccessibleTypography.bodyLarge,
+            label = { Text("Contraseña", style = AccessibleTypography().bodyLarge) },
+            textStyle = AccessibleTypography().bodyLarge,
             visualTransformation = if (!passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
@@ -124,7 +124,7 @@ fun LoginScreen(
                 contentColor = AccesibleColors.OnPrimary
             )
         ) {
-            Text("Iniciar sesión", style = AccessibleTypography.labelLarge)
+            Text("Iniciar sesión", style = AccessibleTypography().labelLarge)
         }
 
         TextButton(
@@ -134,7 +134,7 @@ fun LoginScreen(
             )
         ) {
             Text("¿No tienes cuenta? Regístrate", 
-                style = AccessibleTypography.bodyLarge)
+                style = AccessibleTypography().bodyLarge)
         }
 
         TextButton(
@@ -143,9 +143,13 @@ fun LoginScreen(
                 setRecoveryStep(1)
                 setEmail("")
                 setVerificationCode("")
-            }
+            },
+            colors = ButtonDefaults.textButtonColors(
+                contentColor = AccesibleColors.Primary
+            )
         ) {
-            Text("Recuperar contraseña")
+            Text("Recuperar contraseña",
+                style= AccessibleTypography().bodyMedium)
         }
     }
 }

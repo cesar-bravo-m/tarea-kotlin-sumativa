@@ -16,9 +16,6 @@ object UserManager {
         User("ignacio@gmail.com" , ": admin"),
     )
 
-    init {
-    }
-
     fun authenticate(email: String, password: String): Boolean {
         return users.any { it.email == email && it.password == password }
     }

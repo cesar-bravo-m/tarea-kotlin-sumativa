@@ -17,6 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.myapplication.ui.components.FontSizeControls
+import androidx.compose.foundation.layout.Box
 
 val users = mutableListOf<User>()
 
@@ -30,49 +32,54 @@ fun UIManager() {
     val (isLoggedIn, setIsLoggedIn) = remember { mutableStateOf(false) }
     val context = LocalContext.current
 
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        if (isLoggedIn) {
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(text = "En construcción")
-                Button(onClick = { setIsLoggedIn(false) }) {
-                    Text(text = "Volver")
+    Box(modifier = Modifier.fillMaxSize()) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            floatingActionButton = { FontSizeControls() }
+        ) { innerPadding ->
+            if (isLoggedIn) {
+                Column(modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(text = "En construcción")
+                    Button(onClick = { setIsLoggedIn(false) }) {
+                        Text(text = "Volver")
+                    }
                 }
+            } else if (showRegister) {
+                RegisterScreen(
+                    innerPadding,
+                    setIsLoggedIn,
+                    setShowRegister,
+                    context
+                )
+            } else if (!isLoggedIn && !showRecoveryDialog) {
+                LoginScreen(
+                    innerPadding,
+                    setShowRecoveryDialog,
+                    setRecoveryStep,
+                    setEmail,
+                    setVerificationCode,
+                    setIsLoggedIn,
+                    setShowRegister,
+                    context
+                )
+            } else if (!isLoggedIn && showRecoveryDialog) {
+                RecoveryDialog(
+                    setShowRecoveryDialog,
+                    setRecoveryStep,
+                    recoveryStep,
+                    email,
+                    setEmail,
+                    verificationCode,
+                    setVerificationCode,
+                    context
+                )
             }
-        } else if (showRegister) {
-            RegisterScreen(
-                innerPadding,
-                setIsLoggedIn,
-                setShowRegister,
-                context
-            )
-        } else if (!isLoggedIn && !showRecoveryDialog) {
-            LoginScreen(
-                innerPadding,
-                setShowRecoveryDialog,
-                setRecoveryStep,
-                setEmail,
-                setVerificationCode,
-                setIsLoggedIn,
-                setShowRegister,
-                context
-            )
-        } else if (!isLoggedIn && showRecoveryDialog) {
-            RecoveryDialog(
-                setShowRecoveryDialog,
-                setRecoveryStep,
-                recoveryStep,
-                email,
-                setEmail,
-                verificationCode,
-                setVerificationCode,
-                context
-            )
         }
     }
 }

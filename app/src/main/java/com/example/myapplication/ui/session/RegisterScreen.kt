@@ -55,7 +55,7 @@ fun RegisterScreen(
     ) {
         Text(
             text = "Crear cuenta",
-            style = AccessibleTypography.headlineLarge,
+            style = AccessibleTypography().headlineLarge,
             color = AccesibleColors.Primary,
             modifier = Modifier.padding(bottom = 32.dp)
         )
@@ -63,8 +63,8 @@ fun RegisterScreen(
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email", style = AccessibleTypography.bodyLarge) },
-            textStyle = AccessibleTypography.bodyLarge,
+            label = { Text("Email", style = AccessibleTypography().bodyLarge) },
+            textStyle = AccessibleTypography().bodyLarge,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
@@ -79,8 +79,8 @@ fun RegisterScreen(
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Contraseña", style = AccessibleTypography.bodyLarge) },
-            textStyle = AccessibleTypography.bodyLarge,
+            label = { Text("Contraseña", style = AccessibleTypography().bodyLarge) },
+            textStyle = AccessibleTypography().bodyLarge,
             visualTransformation = if (!passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
@@ -104,8 +104,8 @@ fun RegisterScreen(
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = { Text("Confirmar Contraseña", style = AccessibleTypography.bodyLarge) },
-            textStyle = AccessibleTypography.bodyLarge,
+            label = { Text("Confirmar Contraseña", style = AccessibleTypography().bodyLarge) },
+            textStyle = AccessibleTypography().bodyLarge,
             visualTransformation = if (!passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
@@ -163,13 +163,14 @@ fun RegisterScreen(
                 contentColor = AccesibleColors.OnPrimary
             )
         ) {
-            Text("Crear cuenta", style = AccessibleTypography.labelLarge)
+            Text("Crear cuenta", style = AccessibleTypography().labelLarge)
         }
 
         TextButton(
             onClick = { setShowRegister(false) }
         ) {
-            Text("¿Ya tienes una cuenta? Inicia sesión")
+            Text("¿Ya tienes una cuenta? Inicia sesión",
+                style= AccessibleTypography().bodyMedium)
         }
     }
 } 

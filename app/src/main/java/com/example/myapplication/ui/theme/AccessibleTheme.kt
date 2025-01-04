@@ -4,45 +4,47 @@ import androidx.compose.material3.Typography
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
+import androidx.compose.runtime.Composable
 
 public object AccesibleColors {
-    val Primary = Color(0xFF0052CC)  // Deep blue
+    val Primary = Color(0xFF0052CC)
+    val Secondary = Color(0xFFA32F2F)
     val OnPrimary = Color.White
     val Background = Color.White
-    val OnBackground = Color(0xFF1A1A1A)  // Almost black
-    val Error = Color(0xFFD32F2F)  // Bright red
+    val OnBackground = Color(0xFF1A1A1A)
+    val Error = Color(0xFFD32F2F)
     val Surface = Color.White
     val OnSurface = Color(0xFF1A1A1A)
 }
 
-val AccessibleTypography = Typography(
+@Composable
+public fun AccessibleTypography() = Typography(
     headlineLarge = TextStyle(
-        fontSize = 32.sp,
+        fontSize = ThemeController.getScaledSp(32),
         fontWeight = FontWeight.Bold,
-        lineHeight = 40.sp,
+        lineHeight = ThemeController.getScaledSp(40),
     ),
     headlineMedium = TextStyle(
-        fontSize = 28.sp,
+        fontSize = ThemeController.getScaledSp(28),
         fontWeight = FontWeight.Bold,
-        lineHeight = 36.sp,
+        lineHeight = ThemeController.getScaledSp(36),
     ),
     titleLarge = TextStyle(
-        fontSize = 24.sp,
+        fontSize = ThemeController.getScaledSp(24),
         fontWeight = FontWeight.Medium,
-        lineHeight = 32.sp,
+        lineHeight = ThemeController.getScaledSp(32),
     ),
     bodyLarge = TextStyle(
-        fontSize = 18.sp,
-        lineHeight = 26.sp,
+        fontSize = ThemeController.getScaledSp(18),
+        lineHeight = ThemeController.getScaledSp(26),
     ),
     bodyMedium = TextStyle(
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
+        fontSize = ThemeController.getScaledSp(16),
+        lineHeight = ThemeController.getScaledSp(24),
     ),
     labelLarge = TextStyle(
-        fontSize = 16.sp,
+        fontSize = ThemeController.getScaledSp(16),
         fontWeight = FontWeight.Medium,
-        lineHeight = 24.sp,
+        lineHeight = ThemeController.getScaledSp(24),
     )
 ) 

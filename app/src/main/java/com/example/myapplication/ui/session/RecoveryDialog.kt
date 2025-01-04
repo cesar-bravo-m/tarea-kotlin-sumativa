@@ -48,7 +48,7 @@ fun RecoveryDialog(
             ) {
                 Text(
                     text = if (recoveryStep == 1) "Recuperar Contraseña" else "Verificar Código",
-                    style = AccessibleTypography.titleLarge,
+                    style = AccessibleTypography().titleLarge,
                     color = AccesibleColors.Primary,
                     modifier = Modifier.padding(bottom = 24.dp)
                 )
@@ -57,10 +57,11 @@ fun RecoveryDialog(
                     OutlinedTextField(
                         value = email,
                         onValueChange = { setEmail(it) },
-                        label = { Text("Email") },
+                        label = { Text("Email", style = AccessibleTypography().bodyMedium) },
+                        textStyle = AccessibleTypography().bodyLarge,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 16.dp)
+                            .padding(bottom = 16.dp),
                     )
 
                     Button(
@@ -84,14 +85,18 @@ fun RecoveryDialog(
                                 ).show()
                             }
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = AccesibleColors.Primary,
+                            contentColor = AccesibleColors.OnPrimary)
                     ) {
-                        Text("Enviar Código")
+                        Text("Enviar Código", style = AccessibleTypography().bodyMedium)
                     }
                 } else {
                     OutlinedTextField(
                         value = verificationCode,
                         onValueChange = { setVerificationCode(it) },
+                        textStyle = AccessibleTypography().bodyLarge,
                         label = { Text("Código de Verificación") },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -101,6 +106,7 @@ fun RecoveryDialog(
                     OutlinedTextField(
                         value = newPassword,
                         onValueChange = { setNewPassword(it) },
+                        textStyle = AccessibleTypography().bodyLarge,
                         label = { Text("Nueva Contraseña") },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -133,9 +139,12 @@ fun RecoveryDialog(
                                 ).show()
                             }
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = AccesibleColors.Primary,
+                            contentColor = AccesibleColors.OnPrimary)
                     ) {
-                        Text("Verificar y Cambiar Contraseña")
+                        Text("Cambiar Contraseña", style = AccessibleTypography().bodyLarge)
                     }
                 }
 
@@ -145,7 +154,7 @@ fun RecoveryDialog(
                         setRecoveryStep(1)
                     }
                 ) {
-                    Text("Cancelar")
+                    Text("Cancelar", style = AccessibleTypography().bodyMedium)
                 }
             }
         }
