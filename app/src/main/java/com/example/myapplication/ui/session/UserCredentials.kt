@@ -27,7 +27,7 @@ object UserManager {
         if (users.any { it.email == email }) {
             return false
         }
-        users = users.plus(User(email, password))
+        users += User(email, password)
         return true
     }
 

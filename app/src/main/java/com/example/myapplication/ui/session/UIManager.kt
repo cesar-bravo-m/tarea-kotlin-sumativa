@@ -2,6 +2,7 @@ package com.example.myapplication.ui.session
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,8 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 
 val users = mutableListOf<User>()
 
@@ -29,7 +32,13 @@ fun UIManager() {
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         if (isLoggedIn) {
-            Column(modifier = Modifier.padding(innerPadding)) {
+            Column(modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
                 Text(text = "En construcción")
                 Button(onClick = { setIsLoggedIn(false) }) {
                     Text(text = "Volver")
