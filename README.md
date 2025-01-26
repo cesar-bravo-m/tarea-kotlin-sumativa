@@ -1,10 +1,10 @@
-# App Android Login
+# App YourVoice
 
-Aplicación Android que implementa un sistema de autenticación básico con múltiples pantallas.
+Sistema de comunicación aumentada para personas con discapacidad auditiva
 
 ## Características
 
-### Pantallas Principales
+### Pantallas Desarrolladas (al 25/01/2025)
 - **Inicio de Sesión**: Pantalla principal para autenticación de usuarios
 - **Registro**: Permite a nuevos usuarios crear una cuenta
 - **Recuperar Contraseña**: Funcionalidad para restablecer contraseñas olvidadas
