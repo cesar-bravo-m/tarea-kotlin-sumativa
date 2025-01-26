@@ -2,12 +2,20 @@ package com.example.myapplication.ui.session
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -28,9 +36,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
+import com.example.myapplication.R
 import com.example.myapplication.ui.theme.AccesibleColors
 import com.example.myapplication.ui.theme.AccessibleTypography
+import io.github.alexzhirkevich.compottie.LottieAnimation
+import io.github.alexzhirkevich.compottie.LottieCompositionSpec
+import io.github.alexzhirkevich.compottie.LottieConstants
+import io.github.alexzhirkevich.compottie.rememberLottieComposition
 
 @Composable
 fun LoginScreen(
@@ -46,6 +64,26 @@ fun LoginScreen(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+
+    val jsonString = remember {
+        context.resources.openRawResource(R.raw.b)
+            .bufferedReader()
+            .use { it.readText() }
+    }
+    val composition by rememberLottieComposition {
+        LottieCompositionSpec.JsonString(jsonString)
+    }
+    var currentIndex by remember { mutableStateOf(0) }
+    val texts = arrayOf("Deja que tu teléfono hable por ti", "¡Crea tu cuenta!", "¡Inicia sesión!", "¡Recupera tu contraseña!")
+    val animationDuration = 3000L
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            kotlinx.coroutines.delay(timeMillis = animationDuration)
+            currentIndex = (currentIndex + 1) % texts.size
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,11 +92,11 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = "YourVoice",
-            style = AccessibleTypography().headlineLarge,
-            color = AccesibleColors.Primary,
-            modifier = Modifier.padding(bottom = 32.dp)
+        Image(
+            painter = painterResource(id = R.drawable.yourvoice),
+            contentDescription = "YourVoice Logo",
+            modifier = Modifier
+                .size(300.dp)
         )
 
         OutlinedTextField(

@@ -8,6 +8,10 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.04.01"
+compottie = "2.0.0-rc02"
+compottieDot = "2.0.0-rc02"
+compottieNetwork = "2.0.0-rc02"
+compottieResources = "2.0.0-rc02"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,6 +28,10 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+compottie = { group = "io.github.alexzhirkevich", name = "compottie", version.ref = "compottie" }
+compottie-dot = { group = "io.github.alexzhirkevich", name = "compottie-dot", version.ref = "compottieDot" }
+compottie-network = { group = "io.github.alexzhirkevich", name = "compottie-network", version.ref = "compottieNetwork" }
+compottie-resources = { group = "io.github.alexzhirkevich", name = "compottie-resources", version.ref = "compottieResources" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
