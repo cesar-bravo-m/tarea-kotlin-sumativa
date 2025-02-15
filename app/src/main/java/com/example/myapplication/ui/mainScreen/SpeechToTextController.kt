@@ -49,7 +49,7 @@ class SpeechToTextController(private val context: Context) {
         try {
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
                 putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es-ES")
+                putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es-CL")
                 putExtra(RecognizerIntent.EXTRA_PROMPT, "Hablando...")
             }
 
