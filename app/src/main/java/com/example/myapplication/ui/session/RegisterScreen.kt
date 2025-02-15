@@ -128,31 +128,37 @@ fun RegisterScreen(
 
         Button(
             onClick = {
-                // Validaciones
                 if (email.isBlank() || password.isBlank()) {
                     Toast.makeText(context, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
                     return@Button
                 }
-                // Contraseña: al menos 8 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número y al menos un carácter especial
-                if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}\$".toRegex())) {
-                    Toast.makeText(context, "La contraseña debe tener al menos 6 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número y al menos un carácter especial", Toast.LENGTH_LONG).show()
+                
+                // Validar formato de email
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Toast.makeText(context, "Por favor, ingrese un email válido", Toast.LENGTH_SHORT).show()
                     return@Button
                 }
+                
+                // Validar contraseña
+                if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}\$".toRegex())) {
+                    Toast.makeText(
+                        context, 
+                        "La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula, un número y un carácter especial",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    return@Button
+                }
+                
                 if (password != confirmPassword) {
                     Toast.makeText(context, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
                     return@Button
                 }
-                // Email: Comprobar formato
-                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    Toast.makeText(context, "Email inválido", Toast.LENGTH_SHORT).show()
-                    return@Button
-                }
+                
                 if (UserManager.register(email, password)) {
-                    Toast.makeText(context, "¡Registro exitoso! Usa tus credenciales para iniciar sesión", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "¡Cuenta creada exitosamente!", Toast.LENGTH_SHORT).show()
                     setShowRegister(false)
-                    // setIsLoggedIn(true)
                 } else {
-                    Toast.makeText(context, "El usuario o email ya existe", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Este email ya está registrado", Toast.LENGTH_SHORT).show()
                 }
             },
             modifier = Modifier

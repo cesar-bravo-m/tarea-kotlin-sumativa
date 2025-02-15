@@ -148,10 +148,10 @@ fun LoginScreen(
                 }
                 
                 if (UserManager.authenticate(email, password)) {
-                    Toast.makeText(context, "¡Inicio de sesión exitoso!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "¡Bienvenido de nuevo!", Toast.LENGTH_SHORT).show()
                     setIsLoggedIn(true)
                 } else {
-                    Toast.makeText(context, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "El email o la contraseña son incorrectos", Toast.LENGTH_SHORT).show()
                 }
             },
             modifier = Modifier
