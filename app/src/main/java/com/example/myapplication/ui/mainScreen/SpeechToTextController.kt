@@ -19,7 +19,6 @@ class SpeechToTextController(private val context: Context) {
 
     fun startListening(activity: Activity, onResult: (String) -> Unit) {
         when {
-            // Check if permission is already granted
             ContextCompat.checkSelfPermission(
                 context,
                 Manifest.permission.RECORD_AUDIO

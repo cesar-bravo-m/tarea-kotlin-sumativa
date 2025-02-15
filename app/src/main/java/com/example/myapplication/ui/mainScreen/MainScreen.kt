@@ -1,5 +1,4 @@
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -12,7 +11,6 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import com.example.myapplication.ui.mainScreen.TextToSpeechController
 import android.app.Activity
-import androidx.compose.foundation.Image
 import com.example.myapplication.ui.mainScreen.SpeechToTextController
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -218,7 +216,6 @@ fun MainScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            // Text to Speech button
             Button(
                 onClick = { ttsController.speak(text) },
                 colors = ButtonDefaults.buttonColors(
@@ -244,12 +241,9 @@ fun MainScreen(
                 }
             }
 
-            // Speech to Text button
             Button(
                 onClick = { 
                     if (isListening) {
-                        // Can't actually stop listening directly, 
-                        // user needs to cancel from system dialog
                     } else {
                         sttController?.startListening(activity) { }
                     }
@@ -334,7 +328,6 @@ fun MainScreen(
             }
         }
 
-        // Speech History
         if (speechHistory.isNotEmpty()) {
             Card(
                 modifier = Modifier.fillMaxWidth(),

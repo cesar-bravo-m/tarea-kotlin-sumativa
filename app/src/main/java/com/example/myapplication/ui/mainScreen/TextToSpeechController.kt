@@ -42,7 +42,6 @@ class TextToSpeechController(private val context: Context) : TextToSpeech.OnInit
             _isSpeaking.value = true
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
             
-            // Monitor speaking state
             Thread {
                 while (tts.isSpeaking) {
                     Thread.sleep(100)
