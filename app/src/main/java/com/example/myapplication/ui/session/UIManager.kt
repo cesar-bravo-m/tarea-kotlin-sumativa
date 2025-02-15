@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.session
 
+import MainScreen
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.compose.foundation.layout.Arrangement
@@ -45,10 +46,7 @@ fun UIManager() {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Text(text = "En construcción")
-                    Button(onClick = { setIsLoggedIn(false) }) {
-                        Text(text = "Volver")
-                    }
+                    MainScreen()
                 }
             } else if (showRegister) {
                 RegisterScreen(
