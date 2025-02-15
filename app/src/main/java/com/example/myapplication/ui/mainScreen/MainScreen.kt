@@ -13,14 +13,29 @@ import com.example.myapplication.ui.theme.AccessibleTypography
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import com.example.myapplication.ui.mainScreen.TextToSpeechController
+import android.app.Activity
+import com.example.myapplication.ui.mainScreen.SpeechToTextController
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    sttController: SpeechToTextController? = null,
+    recognizedText: String = "",
+    onRecognizedTextConsumed: () -> Unit = {}
+) {
     var text by remember { mutableStateOf("") }
-    var isListening by remember { mutableStateOf(false) }
     val context = LocalContext.current
+    val activity = context as Activity
     val ttsController = remember { TextToSpeechController(context) }
     val isSpeaking by ttsController.isSpeaking.collectAsState()
+    val isListening by sttController?.isListening?.collectAsState() ?: remember { mutableStateOf(false) }
+
+    // Handle recognized text
+    LaunchedEffect(recognizedText) {
+        if (recognizedText.isNotEmpty()) {
+            text = if (text.isBlank()) recognizedText else "$text $recognizedText"
+            onRecognizedTextConsumed()
+        }
+    }
 
     DisposableEffect(Unit) {
         onDispose {
@@ -92,7 +107,14 @@ fun MainScreen() {
 
             // Speech to Text button
             Button(
-                onClick = { isListening = !isListening },
+                onClick = { 
+                    if (isListening) {
+                        // Can't actually stop listening directly, 
+                        // user needs to cancel from system dialog
+                    } else {
+                        sttController?.startListening(activity) { }
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (isListening) AccesibleColors.Secondary else AccesibleColors.Primary,
                     contentColor = AccesibleColors.OnPrimary
@@ -140,6 +162,34 @@ fun MainScreen() {
                         "Leyendo...",
                         style = AccessibleTypography().bodyLarge,
                         color = AccesibleColors.Primary
+                    )
+                }
+            }
+        }
+
+        if (isListening) {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = AccesibleColors.Secondary.copy(alpha = 0.1f)
+                )
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    CircularProgressIndicator(
+                        color = AccesibleColors.Secondary,
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text(
+                        "Escuchando...",
+                        style = AccessibleTypography().bodyLarge,
+                        color = AccesibleColors.Secondary
                     )
                 }
             }

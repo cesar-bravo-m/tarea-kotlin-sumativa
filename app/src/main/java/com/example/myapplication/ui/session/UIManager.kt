@@ -20,11 +20,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.components.FontSizeControls
 import androidx.compose.foundation.layout.Box
+import com.example.myapplication.ui.mainScreen.SpeechToTextController
 
 val users = mutableListOf<User>()
 
 @Composable
-fun UIManager() {
+fun UIManager(
+    sttController: SpeechToTextController? = null,
+    recognizedText: String = "",
+    onRecognizedTextConsumed: () -> Unit = {}
+) {
     val (showRecoveryDialog, setShowRecoveryDialog) = remember { mutableStateOf(false) }
     val (showRegister, setShowRegister) = remember { mutableStateOf(false) }
     val (recoveryStep, setRecoveryStep) = remember { mutableIntStateOf(1) }
@@ -46,7 +51,7 @@ fun UIManager() {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    MainScreen()
+                    MainScreen(sttController, recognizedText, onRecognizedTextConsumed)
                 }
             } else if (showRegister) {
                 RegisterScreen(
