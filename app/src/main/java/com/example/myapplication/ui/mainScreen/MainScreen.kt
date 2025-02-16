@@ -235,7 +235,7 @@ fun MainScreen(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        if (isSpeaking) "Detener" else "Leer en voz alta",
+                        if (isSpeaking) "Detener" else "Leer",
                         style = AccessibleTypography().labelLarge
                     )
                 }
