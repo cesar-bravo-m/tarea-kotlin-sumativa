@@ -56,13 +56,32 @@ object UserManager {
     }
 
     fun resetPassword(email: String, newPassword: String): Boolean {
-        val user = users.find { it.email == email }
-        if (user != null) {
-            user.password = newPassword
-            db.collection("usuarios").document(user.email).update("password", newPassword)
-            return true
+        return runBlocking {
+            try {
+                val querySnapshot = db.collection("usuarios")
+                    .whereEqualTo("username", email)
+                    .get()
+                    .await()
+
+                if (querySnapshot.isEmpty) {
+                    return@runBlocking false
+                }
+
+                val document = querySnapshot.documents[0]
+
+                document.reference.update("password", newPassword).await()
+
+                currentUser?.let {
+                    if (it.email == email) {
+                        it.password = newPassword
+                    }
+                }
+
+                true
+            } catch (e: Exception) {
+                false
+            }
         }
-        return false
     }
 
     fun verifyEmail(email: String): Boolean {
