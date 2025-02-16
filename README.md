@@ -2,6 +2,11 @@
 
 Sistema de comunicación aumentada para personas con discapacidad auditiva
 
+# Links de descarga
+
+- Azure (https://storagebcyt.blob.core.windows.net/publicacccessblob/app-release.apk)
+- Github (https://github.com/cesar-bravo-m/tarea-kotlin-sumativa/blob/main/app/release/app-release.apk)
+
 ## Características
 
 ### Pantallas Desarrolladas (al 25/01/2025)
