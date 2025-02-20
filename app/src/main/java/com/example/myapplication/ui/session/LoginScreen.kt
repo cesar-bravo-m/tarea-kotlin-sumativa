@@ -146,9 +146,10 @@ fun LoginScreen(
                     Toast.makeText(context, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
                     return@Button
                 }
-                
-                if (UserManager.authenticate(email, password)) {
-                    Toast.makeText(context, "¡Bienvenido de nuevo!", Toast.LENGTH_SHORT).show()
+
+                val authenticate = UserManager.authenticate(email, password)
+                if (authenticate.success) {
+                    Toast.makeText(context, "¡Bienvenid@, "+authenticate.fullName+"!", Toast.LENGTH_SHORT).show()
                     setIsLoggedIn(true)
                 } else {
                     Toast.makeText(context, "El email o la contraseña son incorrectos", Toast.LENGTH_SHORT).show()

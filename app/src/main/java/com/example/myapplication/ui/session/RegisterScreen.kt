@@ -39,6 +39,7 @@ fun RegisterScreen(
     setShowRegister: (Boolean) -> Unit,
     context: Context
 ) {
+    var fullName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -58,6 +59,22 @@ fun RegisterScreen(
             style = AccessibleTypography().headlineLarge,
             color = AccesibleColors.Primary,
             modifier = Modifier.padding(bottom = 32.dp)
+        )
+
+        OutlinedTextField(
+            value = fullName,
+            onValueChange = { fullName = it },
+            label = { Text("Nombre", style = AccessibleTypography().bodyLarge) },
+            textStyle = AccessibleTypography().bodyLarge,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = AccesibleColors.Primary,
+                unfocusedBorderColor = AccesibleColors.OnBackground,
+                focusedLabelColor = AccesibleColors.Primary,
+                unfocusedLabelColor = AccesibleColors.OnBackground
+            )
         )
 
         OutlinedTextField(
@@ -128,6 +145,11 @@ fun RegisterScreen(
 
         Button(
             onClick = {
+                if (fullName.isBlank() || fullName.isBlank()) {
+                    Toast.makeText(context, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
+                    return@Button
+                }
+
                 if (email.isBlank() || password.isBlank()) {
                     Toast.makeText(context, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
                     return@Button
@@ -154,7 +176,7 @@ fun RegisterScreen(
                     return@Button
                 }
                 
-                if (UserManager.register(email, password)) {
+                if (UserManager.register(fullName, email, password)) {
                     Toast.makeText(context, "¡Cuenta creada exitosamente!", Toast.LENGTH_SHORT).show()
                     setShowRegister(false)
                 } else {

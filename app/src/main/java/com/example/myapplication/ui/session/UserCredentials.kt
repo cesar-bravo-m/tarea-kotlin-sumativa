@@ -2,6 +2,7 @@ package com.example.myapplication.ui.session
 
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.rpc.context.AttributeContext.Auth
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 
@@ -23,6 +24,7 @@ object UserManager {
                 val user = User(
                     email = document.getString("username") ?: "",
                     password = document.getString("password") ?: "",
+                    fullName = document.getString("fullName") ?: "",
                 )
                 resultado.add(user)
             }
@@ -31,23 +33,25 @@ object UserManager {
 
     private var currentUser: User? = null
 
-    fun authenticate(email: String, password: String): Boolean {
+    data class AuthReturn(val success: Boolean, val fullName: String)
+
+    fun authenticate(email: String, password: String): AuthReturn {
         val user = users.find { it.email == email && it.password == password }
         if (user != null) {
             currentUser = user
-            return true
+            return AuthReturn(true, user.fullName)
         }
-        return false
+        return AuthReturn(false, "")
     }
 
-    fun register(email: String, password: String): Boolean {
+    fun register(fullName: String, email: String, password: String): Boolean {
         if (users.any { it.email == email }) {
             return false
         }
         val user = hashMapOf(
             "username" to email,
             "password" to password,
-            "fullName" to "",
+            "fullName" to fullName,
             "avatar" to 0
         )
         db.collection("usuarios")

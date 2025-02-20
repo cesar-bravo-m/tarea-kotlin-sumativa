@@ -14,7 +14,7 @@ class UserManagerTest {
     @Test
     fun `autenticación debe fallar con credenciales inválidas`() {
         val email = "test@example.com"
-        UserManager.register(email, "Test123!")
+        UserManager.register("", email, "Test123!")
         val result = UserManager.authenticate(email, "WrongPass123!")
         assertFalse(result)
     }
@@ -22,7 +22,7 @@ class UserManagerTest {
     @Test
     fun `verificación de email debe ser exitosa para email existente`() {
         val email = "test@example.com"
-        UserManager.register(email, "Test123!")
+        UserManager.register("", email, "Test123!")
         val result = UserManager.verifyEmail(email)
         assertTrue(result)
     }
@@ -38,7 +38,7 @@ class UserManagerTest {
         val email = "test@example.com"
         val oldPassword = "Test123!"
         val newPassword = "NewTest123!"
-        UserManager.register(email, oldPassword)
+        UserManager.register("", email, oldPassword)
         val result = UserManager.resetPassword(email, newPassword)
         assertTrue(result)
         assertTrue(UserManager.authenticate(email, newPassword))
