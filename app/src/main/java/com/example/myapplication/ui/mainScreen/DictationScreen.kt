@@ -72,7 +72,7 @@ fun DictationScreen(
             textStyle = AccessibleTypography().bodyLarge,
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
+                .height(100.dp),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = AccesibleColors.Secondary,
                 unfocusedBorderColor = AccesibleColors.OnBackground,
@@ -146,7 +146,9 @@ fun DictationScreen(
         if (speechHistory.isNotEmpty()) {
             Spacer(modifier = Modifier.height(16.dp))
             Card(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
                 colors = CardDefaults.cardColors(
                     containerColor = AccesibleColors.Secondary.copy(alpha = 0.05f)
                 )
