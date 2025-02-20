@@ -16,7 +16,7 @@ class UserManagerTest {
         val email = "test@example.com"
         UserManager.register("", email, "Test123!")
         val result = UserManager.authenticate(email, "WrongPass123!")
-        assertFalse(result)
+        assertFalse(result.success)
     }
 
     @Test
@@ -41,8 +41,8 @@ class UserManagerTest {
         UserManager.register("", email, oldPassword)
         val result = UserManager.resetPassword(email, newPassword)
         assertTrue(result)
-        assertTrue(UserManager.authenticate(email, newPassword))
-        assertFalse(UserManager.authenticate(email, oldPassword))
+        assertTrue(UserManager.authenticate(email, newPassword).success)
+        assertFalse(UserManager.authenticate(email, oldPassword).success)
     }
 
     @Test
