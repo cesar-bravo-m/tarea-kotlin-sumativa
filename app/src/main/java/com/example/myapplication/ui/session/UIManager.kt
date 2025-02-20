@@ -20,7 +20,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.components.FontSizeControls
 import androidx.compose.foundation.layout.Box
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import com.example.myapplication.ui.mainScreen.SpeechToTextController
+import com.example.myapplication.ui.mainScreen.MainMenuScreen
+import com.example.myapplication.ui.mainScreen.ReaderScreen
+import com.example.myapplication.ui.mainScreen.DictationScreen
 
 val users = mutableListOf<User>()
 
@@ -37,6 +42,7 @@ fun UIManager(
     val (verificationCode, setVerificationCode) = remember { mutableStateOf("") }
     val (isLoggedIn, setIsLoggedIn) = remember { mutableStateOf(false) }
     val context = LocalContext.current
+    var currentScreen by remember { mutableStateOf("menu") }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -44,14 +50,20 @@ fun UIManager(
             floatingActionButton = { FontSizeControls() }
         ) { innerPadding ->
             if (isLoggedIn) {
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    MainScreen(sttController, recognizedText, onRecognizedTextConsumed)
+                when (currentScreen) {
+                    "menu" -> MainMenuScreen(
+                        onNavigateToReader = { currentScreen = "reader" },
+                        onNavigateToDictation = { currentScreen = "dictation" }
+                    )
+                    "reader" -> ReaderScreen(
+                        onNavigateBack = { currentScreen = "menu" }
+                    )
+                    "dictation" -> DictationScreen(
+                        sttController = sttController,
+                        recognizedText = recognizedText,
+                        onRecognizedTextConsumed = onRecognizedTextConsumed,
+                        onNavigateBack = { currentScreen = "menu" }
+                    )
                 }
             } else if (showRegister) {
                 RegisterScreen(
