@@ -4,19 +4,19 @@ Sistema de comunicación aumentada para personas con discapacidad auditiva
 
 # Links de descarga
 
-- [APK firmado en Azure](https://storagebcyt.blob.core.windows.net/publicacccessblob/app-release.apk)
-- [APK firmado en Github](https://github.com/cesar-bravo-m/tarea-kotlin-sumativa/blob/main/app/release/app-release.apk)
+- [APK firmado en Azure](https://storagebcyt.blob.core.windows.net/publicacccessblob/app-release-eft.apk?sp=r&st=2025-02-20T03:21:01Z&se=2025-03-13T11:21:01Z&spr=https&sv=2022-11-02&sr=b&sig=dDEUTmNs99im077PmBTn8igag%2B2iZ4tHxXM5jTOgCpI%3D)
+- [APK firmado en Github](https://github.com/cesar-bravo-m/tarea-kotlin-sumativa/blob/main/app/release/app-release-eft.apk)
 
 ## Características
 
-### Pantallas Desarrolladas (al 25/01/2025)
+### Pantallas Desarrolladas (al 20/02/2025)
 - **Inicio de Sesión**: Pantalla principal para autenticación de usuarios
 - **Registro**: Permite a nuevos usuarios crear una cuenta
 - **Recuperar Contraseña**: Funcionalidad para restablecer contraseñas olvidadas
 
 ### Funcionalidades Adicionales
 - Botones de accesibilidad para aumentar y disminuir el tamaño del texto
-- Array predefinido de 5 usuarios para pruebas (ubicado en `app/src/main/java/com/example/myapplication/ui/session/UserCredentials.kt`)
+- Guardado de datos de sesión en Firestore
 
 ## Capturas de Pantalla
 
