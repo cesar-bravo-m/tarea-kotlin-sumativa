@@ -24,7 +24,10 @@ Sistema de comunicación aumentada para personas con discapacidad auditiva
 <img width="353" alt="Captura de pantalla de usuarios" src="https://github.com/user-attachments/assets/e3d0a651-7be6-4b3a-b128-7a8e99ef8db3" />
 <img width="353" alt="Captura de pantalla de usuarios" src="https://github.com/user-attachments/assets/a3d9523f-901e-4e32-998e-d32a9f766f07" />
 <img width="353" alt="Captura de pantalla de usuarios" src="https://github.com/user-attachments/assets/bda945e7-66cf-4b64-ac32-9b361d6c460f" />
-<img width="353" alt="Captura de pantalla de usuarios" src="https://github.com/user-attachments/assets/c5ae1601-fab1-4253-b16d-c09deae947ff" />
+<img width="353" alt="Captura de pantalla de usuarios" src="https://github.com/user-attachments/assets/7a19cbd3-f8c1-4820-a008-06a0d51f861d" />
+<img width="353" alt="Captura de pantalla de usuarios" src="https://github.com/user-attachments/assets/a6506ace-c1d5-4ad0-ad91-19cdac40607f" />
+<img width="353" alt="Captura de pantalla de usuarios" src="https://github.com/user-attachments/assets/6ec2b0c9-82ca-47b8-bf0f-c789481d0e28" />
+
 
 ## Requisitos
 - Android Studio
